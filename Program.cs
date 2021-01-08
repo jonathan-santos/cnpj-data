@@ -47,50 +47,48 @@ public class Program
     {
         Console.WriteLine($"Reading {file} contents...");
 
-        List<string> listA = new List<string>();
-        List<string> listB = new List<string>();
+        var companies = new List<Company>();
+        var members = new List<Member>();
 
         using(var reader = new StreamReader(file))
         {
-            var qtdHeader = 0;
-            ulong qtdPrincipal = 0;
-            ulong qtdSocios = 0;
-
             while (!reader.EndOfStream)
             {
                 var line = reader.ReadLine();
-                if (line[0] == '0')
+                if (line[0] == '1')
                 {
-                    qtdHeader += 1;
-                    Console.WriteLine($"Header[{qtdHeader}]");
-                }
-                else if (line[0] == '1')
-                {
-                    Console.WriteLine($"[{qtdPrincipal}] Empresa | cpnj: {line.Substring(3, 14)} | {(line.Substring(17, 1) == "1" ? "Matriz" : "Filial")} | {line.Substring(18, 150)}");
-                    qtdPrincipal += 1;
+                    companies.Add(new Company()
+                    {
+                        CNPJ = line.Substring(3, 14),
+                        Type = (CompanyType) int.Parse(line.Substring(17, 1)),
+                        BusinessName = line.Substring(18, 150).Trim(),
+                        FantasyName = line.Substring(168, 55).Trim(),
+                        SocialCapital = double.Parse(line.Substring(891, 14)),
+                        RegistrationSituation = (Situation) int.Parse(line.Substring(223, 2)),
+                        RegistrationSituationDate = DateTime.ParseExact(line.Substring(225, 8), "yyyyMMdd", null),
+                        Cep = line.Substring(674, 8)
+                    });
                 }
                 else if (line[0] == '2')
                 {
-                    qtdSocios += 1;
+                    members.Add(new Member()
+                    {
+                        Identifier = (MemberIdentifier) int.Parse(line.Substring(17, 1)),
+                        Name = line.Substring(18, 150).Trim(),
+                        CNPJCPF = line.Substring(168, 14)
+                    });
                 }
             }
-
-            Console.WriteLine($"Principais: {qtdPrincipal}, Socios: {qtdSocios}");
         }
-
 
         Console.WriteLine($"Finished reading {file} contents");
 
-        // foreach (var value in listB)
-        //     Console.WriteLine(value);
-        // string[] lines = File.ReadAllLines(file);
-        // foreach(string line in lines)
-        // {
-        //     string[] columns = line.Split(' ');
-        //     foreach (string column in columns) {
-        //         Console.WriteLine(column);
-        //     }
-        // }
+        // foreach (var company in companies)
+        //     Console.WriteLine($"{company.CNPJ} | {company.BusinessName} | {company.Type}");
+
+        // foreach (var member in members)
+        //     Console.WriteLine($"{member.CNPJCPF} | {member.Name} | {member.Identifier}");
+
     }
 
     public static IHostBuilder CreateHostBuilder(string[] args) =>
