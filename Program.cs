@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
@@ -39,9 +40,57 @@ public class Program
         }
         
         foreach(var file in Directory.GetFiles("./Data/01"))
+            ReadCNPJData(file);
+    }
+
+    static void ReadCNPJData(string file)
+    {
+        Console.WriteLine($"Reading {file} contents...");
+
+        List<string> listA = new List<string>();
+        List<string> listB = new List<string>();
+
+        using(var reader = new StreamReader(file))
         {
-            Console.WriteLine($"Reading {file}...");
+            var qtdHeader = 0;
+            ulong qtdPrincipal = 0;
+            ulong qtdSocios = 0;
+
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+                if (line[0] == '0')
+                {
+                    qtdHeader += 1;
+                    Console.WriteLine($"Header[{qtdHeader}]");
+                }
+                else if (line[0] == '1')
+                {
+                    Console.WriteLine($"[{qtdPrincipal}] Empresa | cpnj: {line.Substring(3, 14)} | {(line.Substring(17, 1) == "1" ? "Matriz" : "Filial")} | {line.Substring(18, 150)}");
+                    qtdPrincipal += 1;
+                }
+                else if (line[0] == '2')
+                {
+                    qtdSocios += 1;
+                }
+            }
+
+            Console.WriteLine($"Principais: {qtdPrincipal}, Socios: {qtdSocios}");
         }
+
+
+        Console.WriteLine($"Finished reading {file} contents");
+
+        // foreach (var value in listB)
+        //     Console.WriteLine(value);
+        // string[] lines = File.ReadAllLines(file);
+        // foreach(string line in lines)
+        // {
+        //     string[] columns = line.Split(' ');
+        //     foreach (string column in columns) {
+        //         Console.WriteLine(column);
+        //     }
+        // }
     }
 
     public static IHostBuilder CreateHostBuilder(string[] args) =>
