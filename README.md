@@ -11,7 +11,7 @@ Para isso, criamos uma simulação com uma base pública de CNPJ's da receita fe
 ## Passo a passo
 ### 1. Crie um robô que baixe um ou mais arquivos de CNPJ
 
-Os arquivos completos podem ser baixados no site da [receita](https://receita.economia.gov.br/orientacao/tributaria/cadastros/cadastro-nacional-de-pessoas-juridicas-cnpj/dados-publicos-cnpj])
+Os arquivos completos podem ser baixados no site da [receita](https://receita.economia.gov.br/orientacao/tributaria/cadastros/cadastro-nacional-de-pessoas-juridicas-cnpj/dados-publicos-cnpj)
 
 Exemplo:  
 - [Dados abertos de CNPJ 1](http://200.152.38.155/CNPJ/DADOS_ABERTOS_CNPJ_01.zip)
