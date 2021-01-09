@@ -1,13 +1,23 @@
-enum MemberIdentifier
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+public enum MemberIdentifier
 {
     JuridicPerson = 1,
     PhysicalPerson = 2,
     Foreigner = 3
 }
 
-class Member
+[Table("Members")]
+public class Member
 {
-    public MemberIdentifier Identifier { get; set; }
-    public string Name { get; set; }
+    [Key]
+    [Required]
+    [StringLength(14)]
     public string CNPJCPF { get; set; }
+
+    public MemberIdentifier Identifier { get; set; }
+
+    [StringLength(150)]
+    public string Name { get; set; }
 }

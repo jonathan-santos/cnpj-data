@@ -1,4 +1,11 @@
 # Teste de migração de dados
+## Rodar o projeto
+Para rodar o projeto que criei:
+1. Tenha o [.Net 5](https://dotnet.microsoft.com/download/dotnet/5.0) instalado em seu computador
+2. Tenha o `dotnet ef` instalado em seu computador (Caso não tenho é só usar o comando `dotnet tool install --global dotnet-ef`)
+3. Use o comando `dotnet ef database update` para criar o banco de dados SQLite dentro do projeto
+4. Use o comando `dotnet run` para rodar o projeto (Nota: Vai demorar para o servidor funcionar, pois o projeto precisa baixar pelo menos 1 dos arquivos de CNPJ da Receita)
+
 ## Objetivo
 O objetivo deste teste é simular uma situação bastante corriqueira do cotidiano do time em empresas de tecnologia:
 - Baixar os dados de uma API;

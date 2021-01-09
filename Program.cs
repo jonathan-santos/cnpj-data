@@ -8,7 +8,7 @@ public class Program
     {
         var cnpjData = new CNPJData();
         await cnpjData.GetCNPJData();
-        // CreateHostBuilder(args).Build().Run();
+        CreateHostBuilder(args).Build().Run();
     }    
 
     public static IHostBuilder CreateHostBuilder(string[] args) =>
