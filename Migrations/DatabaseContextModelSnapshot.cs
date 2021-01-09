@@ -52,6 +52,10 @@ namespace cnpj_data.Migrations
 
             modelBuilder.Entity("Member", b =>
                 {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("CNPJCPF")
                         .HasMaxLength(14)
                         .HasColumnType("TEXT");
@@ -63,7 +67,7 @@ namespace cnpj_data.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("TEXT");
 
-                    b.HasKey("CNPJCPF");
+                    b.HasKey("ID");
 
                     b.ToTable("Members");
                 });

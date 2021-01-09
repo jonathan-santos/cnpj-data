@@ -29,13 +29,15 @@ namespace cnpj_data.Migrations
                 name: "Members",
                 columns: table => new
                 {
-                    CNPJCPF = table.Column<string>(type: "TEXT", maxLength: 14, nullable: false),
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CNPJCPF = table.Column<string>(type: "TEXT", maxLength: 14, nullable: true),
                     Identifier = table.Column<int>(type: "INTEGER", nullable: false),
                     Name = table.Column<string>(type: "TEXT", maxLength: 150, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Members", x => x.CNPJCPF);
+                    table.PrimaryKey("PK_Members", x => x.ID);
                 });
         }
 

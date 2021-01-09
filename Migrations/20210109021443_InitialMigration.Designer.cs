@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace cnpj_data.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20210109001427_InitialMigration")]
+    [Migration("20210109021443_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,6 +54,10 @@ namespace cnpj_data.Migrations
 
             modelBuilder.Entity("Member", b =>
                 {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("CNPJCPF")
                         .HasMaxLength(14)
                         .HasColumnType("TEXT");
@@ -65,7 +69,7 @@ namespace cnpj_data.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("TEXT");
 
-                    b.HasKey("CNPJCPF");
+                    b.HasKey("ID");
 
                     b.ToTable("Members");
                 });

@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 class CNPJData
 {
-    string _dataFolder = "Data";
-    int[] _cnpjDataFilesToDownload = new int[] { 1 };
-    string _uncompressedFilesFolder = "uncompressed";
+    static string _dataFolder = "Data";
+    static int[] _cnpjDataFilesToDownload = new int[] { 1 };
+    static string _uncompressedFilesFolder = "uncompressed";
 
     public List<Company> Companies { get; set; }
     public List<Member> Members { get; set; }
@@ -22,17 +22,13 @@ class CNPJData
         Members = new List<Member>();
     }
 
-    public async Task GetCNPJData()
+    public static async Task PrepareFiles()
     {
         CreateDataFolders();
-
         await RetrieveDataFiles();
-
-        foreach(var file in Directory.GetFiles($"{_dataFolder}/{_uncompressedFilesFolder}"))
-            ParseCPNJDataFromFile(file);
     }
 
-    void CreateDataFolders()
+    static void CreateDataFolders()
     {
         if (!Directory.Exists(_dataFolder))
             Directory.CreateDirectory(_dataFolder);
@@ -41,7 +37,7 @@ class CNPJData
             Directory.CreateDirectory($"{_dataFolder}/{_uncompressedFilesFolder}");
     }
 
-    async Task RetrieveDataFiles()
+    static async Task RetrieveDataFiles()
     {
         foreach (var fileNumber in _cnpjDataFilesToDownload)
         {
@@ -72,6 +68,12 @@ class CNPJData
                 ZipFile.ExtractToDirectory($"{_dataFolder}/{file}", $"{_dataFolder}/{_uncompressedFilesFolder}");
             }
         }
+    }
+
+    public void RetrieveDataFromFiles()
+    {
+        foreach(var file in Directory.GetFiles($"{_dataFolder}/{_uncompressedFilesFolder}"))
+            ParseCPNJDataFromFile(file);
     }
 
     void ParseCPNJDataFromFile(string file)
