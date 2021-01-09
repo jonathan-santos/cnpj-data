@@ -11,14 +11,14 @@ public class DatabaseContext : DbContext
 
     public async Task PopulateDatabaseWithCNPJData()
     {
-        var cnpj = new CNPJData();
-        cnpj.RetrieveDataFromFiles();
-
         var companiesCount = await Companies.CountAsync();
         var membersCount = await Companies.CountAsync();
 
-        if (companiesCount < cnpj.Companies.Count || membersCount < cnpj.Members.Count)
+        if (companiesCount == 0 || membersCount == 0)
         {
+            var cnpj = new CNPJData();
+            cnpj.RetrieveDataFromFiles();
+
             Console.WriteLine("Populating Database");
             await Companies.AddRangeAsync(cnpj.Companies);
             await Members.AddRangeAsync(cnpj.Members);

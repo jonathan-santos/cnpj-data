@@ -1,15 +1,26 @@
 using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("[controller]")]
 public class CNPJController : ControllerBase
 {
-    public CNPJController(DatabaseContext dbContext) { }
+    DatabaseContext _context;
 
-    [HttpGet]
-    public string Get()
+    public CNPJController(DatabaseContext context)
     {
-        return "Hello";
+        _context = context;
+    }
+
+    [HttpGet("{cnpj}")]
+    public async Task<ActionResult<Company>> GetCompany(string cnpj)
+    {
+        var company = await _context.Companies.FindAsync(cnpj);
+
+        if(company == null)
+            return NotFound();
+
+        return company;
     }
 }
