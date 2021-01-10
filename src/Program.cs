@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -17,8 +18,11 @@ public class Program
 
             try
             {
-                var dbContext = services.GetRequiredService<DatabaseContext>();
-                await dbContext.PopulateDatabaseWithCNPJData();
+                using (var context = services.GetRequiredService<DatabaseContext>())
+                {
+                    await context.Database.MigrateAsync();
+                    await context.PopulateDatabaseWithCNPJData();
+                }
             }
             catch (Exception ex)
             {
