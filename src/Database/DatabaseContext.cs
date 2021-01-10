@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,11 +20,15 @@ public class DatabaseContext : DbContext
             var cnpj = new CNPJData();
             cnpj.RetrieveDataFromFiles();
 
-            Console.WriteLine("Populating Database");
+            Console.WriteLine("\nDatabase is empty, populating it with CNPJ data...");
+            var sw = Stopwatch.StartNew();
+            
             await Companies.AddRangeAsync(cnpj.Companies);
             await Members.AddRangeAsync(cnpj.Members);
             await SaveChangesAsync();
-            Console.WriteLine("Finished populating Database");
+
+            sw.Stop();
+            Console.WriteLine($"Finished populating Database with CNPJ data in {sw.ElapsedMilliseconds/1000}s\n");
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -45,7 +46,9 @@ class CNPJData
 
             if (!File.Exists($"{_dataFolder}/{file}"))
             {
-                Console.WriteLine($"{file} File doesn't exist, downloading...");
+                Console.WriteLine($"\n{file} File doesn't exist, downloading...");
+                var sw = Stopwatch.StartNew();
+
                 using var client = new HttpClient();
                 client.Timeout = new TimeSpan(1, 0, 0);
 
@@ -56,6 +59,9 @@ class CNPJData
 
                 using (var fs = new FileStream($"{_dataFolder}/{file}", FileMode.CreateNew))
                     await result.Content.CopyToAsync(fs);
+
+                sw.Stop();
+                Console.WriteLine($"Finished downloading {file} in {sw.ElapsedMilliseconds/1000}s");
             }
 
             string dataFile;
@@ -64,8 +70,13 @@ class CNPJData
 
             if (!File.Exists($"{_dataFolder}/{_uncompressedFilesFolder}/{dataFile}"))
             {
-                Console.WriteLine($"{file} not extracted yet, extracting...");
+                Console.WriteLine($"\n{file} not extracted yet, extracting...");
+                var sw = Stopwatch.StartNew();
+                
                 ZipFile.ExtractToDirectory($"{_dataFolder}/{file}", $"{_dataFolder}/{_uncompressedFilesFolder}");
+
+                sw.Stop();
+                Console.WriteLine($"Finished extracting {file} in {sw.ElapsedMilliseconds/1000}s");
             }
         }
     }
@@ -78,7 +89,8 @@ class CNPJData
 
     void ParseCPNJDataFromFile(string file)
     {
-        Console.WriteLine($"Reading {file} contents...");
+        Console.WriteLine($"\nReading {file} contents...");
+        var sw = Stopwatch.StartNew();
 
         using(var reader = new StreamReader(file))
         {
@@ -93,7 +105,8 @@ class CNPJData
             }
         }
 
-        Console.WriteLine($"Finished reading {file} contents");
+        sw.Stop();
+        Console.WriteLine($"Finished reading {file} contents in {sw.ElapsedMilliseconds/1000}s");
     }
 
     Company ParseCompanyFromLine(string line)

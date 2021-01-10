@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.Design;
 
 public enum MemberIdentifier
 {
@@ -12,7 +11,6 @@ public enum MemberIdentifier
 [Table("Members")]
 public class Member
 {
-
     [Key]
     [Required]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
