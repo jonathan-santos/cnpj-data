@@ -1,17 +1,17 @@
 # Teste de migração de dados
-## Rodar o projeto
-Para rodar o projeto que criei:
+## Como iniciar o projeto
+Para iniciar o projeto que criei:
 - Tenha o [.Net 5](https://dotnet.microsoft.com/download/dotnet/5.0) instalado em seu computador
-- Use o comando `dotnet run` para rodar o projeto (Nota: Vai demorar para o servidor funcionar, pois o projeto precisa baixar pelo menos 1 dos arquivos de CNPJ da Receita e então popular o banco de dados com os dados de CNPJ)
+- Use o comando `dotnet run` para iniciar o projeto (Nota: Vai demorar para o servidor funcionar, pois o projeto precisa baixar pelo menos 1 dos arquivos de CNPJ da Receita e então popular o banco de dados com os dados de CNPJ)
 
 ## Objetivo
-O objetivo deste teste é simular uma situação bastante corriqueira do cotidiano do time em empresas de tecnologia:
+O objetivo deste teste é simular uma situação bastante corriqueira do cotidiano de um time de Back-End em empresas de tecnologia:
 - Baixar os dados de uma API;
 - Fazer a leitura de arquivos e transformá-los em classe/objeto;
-- Inserir os dados em um banco de dados (preferencialmente MongoDB);
+- Inserir os dados em um banco de dados;
 - Criar uma API que retorne os dados inseridos no formato Json;
 
-Para isso, criamos uma simulação com uma base pública de CNPJ's da receita federal. Todas as informações necessárias para resolver os desafios serão descritas a seguir:
+Para esse desafio, você deverá criar uma simulação usando uma base de dados pública de CNPJ's da receita federal. Sobre o que você deve fazer exatamente, siga o passo a passo a seguir:
 
 ## Passo a passo
 ### 1. Crie um robô que baixe um ou mais arquivos de CNPJ
@@ -24,7 +24,7 @@ Exemplo:
  
 Você deverá baixar esses arquivos através de um robô, mas também poderá baixá-los manualmente para conseguir fazer as outras etapas do desafio caso sinta alguma dificuldade nesse processo.
 
-Observação: Estamos disponibilizando uma versão em nosso Google Drive caso os links da receita estejam fora do ar: 
+Observação: Há uma versão no Google Drive caso os links da receita estejam fora do ar: 
 - [Cópia de um dos dados abertos no Google Drive](https://drive.google.com/file/d/11JEE8WKSD9_FBAfGfiFq_z-ZtS1bmGeR/view?usp=sharing)
 
 ### 2. Extrair o arquivo zip
@@ -52,9 +52,9 @@ Faça o parser apenas dos campos abaixo:
 
 Para inforamações sobre o layout do arquivo acesse o [Documento com layout do arquivo](http://200.152.38.155/CNPJ/LAYOUT_DADOS_ABERTOS_CNPJ.pdf) ou a [cópia dele no Google Drive](https://drive.google.com/file/d/11Nc-60v0QNA02J6ZYfqUPglYIX_IlcEu/view?usp=sharing)
 
-### 4. Inserir os dados em um banco de dados MongoDB
+### 4. Inserir os dados em um banco de dados
 
-Depois de fazer o parser dos dados, faça a inserção deles em um banco de dados MongoDB. Caso prefira utilizar outro banco de dados para completar essa etapa do desafio, não tem problema.
+Depois de fazer o parser dos dados, faça a inserção deles em um banco de dados que quiser.
 
 ### 5. Crie uma API que retorne os dados
 
